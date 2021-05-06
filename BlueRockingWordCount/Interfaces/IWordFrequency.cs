@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace BlueRockingWordCount
 {
-    public class Class1
+    public interface IWordFrequency
     {
+        string Word { get; set; }
+        int Frequency { get; set; }
+
     }
 }
