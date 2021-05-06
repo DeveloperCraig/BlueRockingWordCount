@@ -41,6 +41,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Classes\WordFrequency.cs" />
+    <Compile Include="Classes\WordFrequencyAnalyzer.cs" />
     <Compile Include="Interfaces\IWordFrequency.cs" />
     <Compile Include="Interfaces\IWordFrequencyAnalyzer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -48,8 +50,6 @@
   <ItemGroup>
     <None Include="DocFiles\BRS - Coding Test.pdf" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Classes\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
