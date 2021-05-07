@@ -14,37 +14,44 @@ namespace BlueRockingWordCount.Classes
         public int CalculateHighestFrequency(string text)
         {
             //NOTE: This will just come back with the most request word and how often its used.
-            string words;
+            string words = text;
             try
             {
-                //TODO: We need to first Remove any speical characters and numbers from the string (Futrue prof)
-                words = Regex.Replace(text, @"[^ a-zA-Z]+", "").ToLower();
-
-                string[] wordsArry = words.Split(' ');
-
-                wordsArry.Count();
-
-                var largestNumber = wordsArry
-                                    .GroupBy(l => l)
-                                    .OrderByDescending(g => g.Count());
-
-                foreach (var item in largestNumber)
+                if (Regex.IsMatch(words, @"[&\/\\#,+()$~%.'"":*?<>{}0-9]"))
                 {
-                    Console.WriteLine("{0}, {1}", item.Count(), item.Key );
+                    throw new Exception("You cannot have speical charaters or Numbers in the word");
+                }
+                else
+                {
+                    words.ToLower();
+                    string[] wordsArry = words.Split(' ');
+
+                    wordsArry.Count();
+
+                    var largestNumber = wordsArry
+                                        .GroupBy(l => l)
+                                        .OrderByDescending(g => g.Count());
+
+
+                    //NOTE: This isnt needed in this bit of code
+                    foreach (var item in largestNumber)
+                    {
+                        Console.WriteLine("{0}, {1}", item.Count(), item.Key);
+                    }
+
+                    return largestNumber.FirstOrDefault().Count();
+
+                    //ISSUE: If the wordring doesn't have any duplicates then it will just come back with the first word
+
                 }
 
-                return largestNumber.FirstOrDefault().Count();
-
-                //ISSUE: If the wordring doesn't have any duplicates then it will just come back with the first word
 
             }
-            catch (Exception)
+            catch (Exception e)
             {
 
-                throw;
+                throw e;
             }
-
-            throw new NotImplementedException();
 
         }
 

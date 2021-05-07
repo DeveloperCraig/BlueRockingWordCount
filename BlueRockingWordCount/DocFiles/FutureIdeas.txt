@@ -1,0 +1,2 @@
+Futrue Ideas:
++ Possibly add the functionaly to add a text file in to and look for how many time a certain word has been used 
