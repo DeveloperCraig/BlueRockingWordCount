@@ -53,6 +53,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="DocFiles\FutureIdeas.txt" />
+    <Content Include="DocFiles\UsefulResorses.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

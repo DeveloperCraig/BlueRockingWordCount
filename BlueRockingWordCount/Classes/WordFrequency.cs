@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BlueRockingWordCount.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace BlueRockingWordCount.Classes
 {
-    public class WordFrequency : BlueRockingWordCount.Interfaces.IWordFrequency
+    public class WordFrequency : IWordFrequency
     {
-        public string Word { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public int Frequency { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public string Word { get; set; }
+        public int Frequency { get; set; }
     }
 }

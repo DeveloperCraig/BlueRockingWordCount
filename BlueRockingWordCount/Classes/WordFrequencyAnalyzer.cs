@@ -14,37 +14,30 @@ namespace BlueRockingWordCount.Classes
         public int CalculateHighestFrequency(string text)
         {
             //NOTE: This will just come back with the most request word and how often its used.
-            string words = text;
+            
+            //NOTE: This will make the text lower to help with comparing words
+            string words = text.ToLower();
             try
             {
+                //NOTE: This will find out if there is any invalid characters in the text
                 if (Regex.IsMatch(words, @"[&\/\\#,+()$~%.'"":*?<>{}0-9]"))
                 {
-                    throw new Exception("You cannot have speical charaters or Numbers in the word");
+                    throw new ArgumentException("You cannot have speical charaters or Numbers in the word");
                 }
                 else
                 {
-                    words.ToLower();
+                    //wordsArry.Count();
                     string[] wordsArry = words.Split(' ');
 
-                    wordsArry.Count();
 
                     var largestNumber = wordsArry
                                         .GroupBy(l => l)
                                         .OrderByDescending(g => g.Count());
 
-
-                    //NOTE: This isnt needed in this bit of code
-                    foreach (var item in largestNumber)
-                    {
-                        Console.WriteLine("{0}, {1}", item.Count(), item.Key);
-                    }
-
                     return largestNumber.FirstOrDefault().Count();
 
                     //ISSUE: If the wordring doesn't have any duplicates then it will just come back with the first word
-
                 }
-
 
             }
             catch (Exception e)
@@ -66,8 +59,50 @@ namespace BlueRockingWordCount.Classes
         {
             //NOTE: This basicly will retern a list of words with the number of times it appeares, however it will only show
             // a set number of words based on the "number" interger
+            List<IWordFrequency> List = new List<IWordFrequency>();
+            string words = text.ToLower();
+            int iteration = 0;
+            try
+            {
+                string[] wordsArry = words.Split(' ');
 
-            throw new NotImplementedException();
+
+                var largestNumber = wordsArry
+                                    .GroupBy(l => l)
+                                    .OrderByDescending(g => g.Count());
+
+                
+                {
+                    foreach (var item in largestNumber)
+                    {
+                        if (iteration < number)
+                        {
+                            List.Add(new WordFrequency { Word = item.Key, Frequency = item.Count() });
+                            iteration++;
+                        }
+                        else
+                        {
+                            break;
+                        }
+                        
+                    }
+                }
+
+
+
+
+                //TODO: I need to return only a set number
+
+
+                return List;
+
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.StackTrace);
+                throw;
+            }
         }
     }
 }
