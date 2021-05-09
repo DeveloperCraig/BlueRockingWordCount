@@ -8,6 +8,7 @@ namespace UnitTestBlueRockingWordCount
     public class UnitTestPlayArea
     {
         [TestMethod]
+        [TestCategory("ToyBox")]
         [DataRow("The suN2 'shi1nes OVER the lake1")]
         public void TestRegex(string text)
         {
