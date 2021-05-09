@@ -10,13 +10,13 @@ namespace BlueRockingWordCount.Classes
 {
     public class WordFrequencyAnalyzer : BlueRockingWordCount.Interfaces.IWordFrequencyAnalyzer
     {
-        //NOTE: This is technicly working but could be better
+        //NOTE: This is technically working but could be better
 
         /// <summary>
         /// This will just come back with the most request word and how often its used.
         /// </summary>
         /// <param name="text"></param>
-        /// <returns>A number of the most reocuring word</returns>
+        /// <returns>A number of the most reoccurring word</returns>
         public int CalculateHighestFrequency(string text)
         {            
             //NOTE: This will make the text lower to help with comparing words
@@ -26,7 +26,7 @@ namespace BlueRockingWordCount.Classes
                 //NOTE: This will find out if there is any invalid characters in the text
                 if (Regex.IsMatch(words, @"[&\/\\#,+()$~%.'"":*?<>{}0-9]"))
                 {
-                    throw new ArgumentException("You cannot have speical charaters or Numbers in the word");
+                    throw new ArgumentException("You cannot have special characters or Numbers in the word");
                 }
                 else
                 {
@@ -40,7 +40,7 @@ namespace BlueRockingWordCount.Classes
 
                     return largestNumber.FirstOrDefault().Count();
 
-                    //ISSUE: If the wordring doesn't have any duplicates then it will just come back with the first word
+                    //ISSUE: If the wording doesn't have any duplicates then it will just come back with the first word
                 }
 
             }
@@ -61,40 +61,38 @@ namespace BlueRockingWordCount.Classes
         /// <returns>A number relating to the number of times this word was used in the text</returns>
         public int CalculateFrequencyForWord(string text, string word)
         {
-            //NOTE: This one you have a long bit of text and the word the user is trying to find.
-            string words = word.ToLower();
             try
             {
-
-                if (Regex.IsMatch(words, @"[&\/\\#,+()$~%.'"":*?<>{}0-9]"))
+                if (Regex.IsMatch(word, @"[&\/\\#,+()$~%.'"":*?<>{}0-9]"))
                 {
-                    throw new ArgumentException("You cannot have speical charaters or Numbers in the word");
+                    throw new ArgumentException("You cannot have special characters or Numbers in the word");
                 }
 
+                string[] texts = text.ToLower().Split(' ');
+
+                var result = texts
+                    .GroupBy(w => w)
+                    .Where(w => w.Key == word.ToLower())
+                    .Select(w => w.Count());
 
 
-
+                return result.FirstOrDefault();
 
             }
-            catch (Exception)
+            catch (Exception e)
             {
-
+                Console.WriteLine(e.StackTrace);
                 throw;
             }
-
-
-
-
-            throw new NotImplementedException();
         }
 
 
         /// <summary>
-        /// This basicly will retern a list of words with the number of times it appeares, however it will only show a set number of words based on the "number" interger
+        /// This basically will return a list of words with the number of times it appearers, however it will only show a set number of words based on the "number" integer
         /// </summary>
         /// <param name="text"></param>
         /// <param name="number"></param>
-        /// <returns>A list of words with the number of times it appeares</returns>
+        /// <returns>A list of words with the number of times it appearers</returns>
         public IList<IWordFrequency> CalculateMostFrequentWords(string text, int number)
         {
             List<IWordFrequency> List = new List<IWordFrequency>();
@@ -105,7 +103,7 @@ namespace BlueRockingWordCount.Classes
                 //NOTE: This will find out if there is any invalid characters in the text
                 if (Regex.IsMatch(words, @"[&\/\\#,+()$~%.'"":*?<>{}0-9]"))
                 {
-                    throw new ArgumentException("You cannot have speical charaters or Numbers in the word");
+                    throw new ArgumentException("You cannot have special characters or Numbers in the word");
                 }
 
 

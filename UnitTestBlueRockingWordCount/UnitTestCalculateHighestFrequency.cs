@@ -10,9 +10,9 @@ namespace UnitTestBlueRockingWordCount
         [TestMethod]
         [TestCategory("CalculateHighestFrequency")]
         [ExpectedException(typeof(ArgumentException),
-        "You cannot have speical charaters or Numbers in the word")]
+        "You cannot have special characters or Numbers in the word")]
         /// <summary>
-        /// This Test will test to see if the code will thow an error if the user enters a special character
+        /// This Test will test to see if the code will throw an error if the user enters a special character
         /// </summary>
         public void TestSpecialCharacters()
         {
@@ -25,7 +25,7 @@ namespace UnitTestBlueRockingWordCount
         [TestMethod]
         [TestCategory("CalculateHighestFrequency")]
         [ExpectedException(typeof(ArgumentException),
-        "You cannot have speical charaters or Numbers in the word")]
+        "You cannot have special characters or Numbers in the word")]
         /// <summary>
         /// This Test will test to see if the code will thow an error if the user enters a number
         /// </summary>

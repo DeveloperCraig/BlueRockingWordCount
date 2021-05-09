@@ -34,5 +34,15 @@ namespace UnitTestBlueRockingWordCount
             }
 
         }
+
+
+        [TestMethod]
+        [TestCategory("BasicTestArea")]
+        public void TestCalculateFrequencyForWord()
+        {
+            var Testing = new WordFrequencyAnalyzer();
+            Testing.CalculateFrequencyForWord("The Man jumped over the moon while the man looked up at the sky", "Man");
+
+        }
     }
 }
