@@ -18,20 +18,17 @@ namespace BlueRockingWordCount.Classes
         /// <param name="text"></param>
         /// <returns>A number of the most reoccurring word</returns>
         public int CalculateHighestFrequency(string text)
-        {            
-            //NOTE: This will make the text lower to help with comparing words
-            string words = text.ToLower();
+        {
             try
             {
                 //NOTE: This will find out if there is any invalid characters in the text
-                if (Regex.IsMatch(words, @"[&\/\\#,+()$~%.'"":*?<>{}0-9]"))
+                if (Regex.IsMatch(text, @"[&\/\\#,+()$~%.'"":*?<>{}0-9]"))
                 {
                     throw new ArgumentException("You cannot have special characters or Numbers in the word");
                 }
                 else
                 {
-                    //wordsArry.Count();
-                    string[] wordsArry = words.Split(' ');
+                    string[] wordsArry = text.ToLower().Split(' ');
 
 
                     var largestNumber = wordsArry
@@ -41,6 +38,7 @@ namespace BlueRockingWordCount.Classes
                     return largestNumber.FirstOrDefault().Count();
 
                     //ISSUE: If the wording doesn't have any duplicates then it will just come back with the first word
+                    //However the spec didn't mention it wanted anything to happen if there was no duplicates
                 }
 
             }
@@ -63,7 +61,7 @@ namespace BlueRockingWordCount.Classes
         {
             try
             {
-                if (Regex.IsMatch(word, @"[&\/\\#,+()$~%.'"":*?<>{}0-9]"))
+                if (Regex.IsMatch(text, @"[&\/\\#,+()$~%.'"":*?<>{}0-9]"))
                 {
                     throw new ArgumentException("You cannot have special characters or Numbers in the word");
                 }
@@ -94,46 +92,49 @@ namespace BlueRockingWordCount.Classes
         /// <param name="number"></param>
         /// <returns>A list of words with the number of times it appearers</returns>
         public IList<IWordFrequency> CalculateMostFrequentWords(string text, int number)
-        {
-            List<IWordFrequency> List = new List<IWordFrequency>();
-            string words = text.ToLower();
-            int iteration = 0;
+        {        
             try
             {
+                List<IWordFrequency> List = new List<IWordFrequency>();
+                int iteration = 0;
+                IEnumerable<IGrouping<string, string>> largestNumber;
+
                 //NOTE: This will find out if there is any invalid characters in the text
-                if (Regex.IsMatch(words, @"[&\/\\#,+()$~%.'"":*?<>{}0-9]"))
+                if (Regex.IsMatch(text, @"[&\/\\#,+()$~%.'"":*?<>{}0-9]"))
                 {
                     throw new ArgumentException("You cannot have special characters or Numbers in the word");
                 }
+                string[] wordsArry = text.ToLower().Split(' ');
 
-
-                string[] wordsArry = words.Split(' ');
-
-
-                var largestNumber = wordsArry
-                                    .GroupBy(l => l)
-                                    .OrderByDescending(g => g.Count());
-
-                
+                if (wordsArry.GroupBy(x => x).Any(g => g.Count() > 1))
                 {
-                    foreach (var item in largestNumber)
+                    largestNumber = wordsArry
+                    .GroupBy(l => l)
+                    .OrderByDescending(g => g.Count());
+                }
+                else
+                {
+                    largestNumber = wordsArry
+                        .GroupBy(l => l)
+                        .OrderBy(g => g.Key);
+                }
+
+
+                foreach (var item in largestNumber)
+                {
+                    if (iteration < number)
                     {
-                        if (iteration < number)
-                        {
-                            List.Add(new WordFrequency { Word = item.Key, Frequency = item.Count() });
-                            iteration++;
-                        }
-                        else
-                        {
-                            break;
-                        }
-                        
+                        List.Add(new WordFrequency { Word = item.Key, Frequency = item.Count() });
+                        iteration++;
                     }
+                    else
+                    {
+                        break;
+                    }
+
                 }
 
                 return List;
-
-
             }
             catch (Exception e)
             {

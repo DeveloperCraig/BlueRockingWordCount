@@ -49,11 +49,12 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="UnitTestCalculateMostFrequentWords.cs" />
-    <Compile Include="UnitTestCalculateHighestFrequency.cs" />
-    <Compile Include="UnitTestWordFrequencyAnalyzer.cs" />
+    <Compile Include="WordFrequencyAnalyzer\UnitTestCalculateFrequencyForWord.cs" />
+    <Compile Include="WordFrequencyAnalyzer\UnitTestCalculateMostFrequentWords.cs" />
+    <Compile Include="WordFrequencyAnalyzer\UnitTestCalculateHighestFrequency.cs" />
+    <Compile Include="BasicTesting\UnitTestBasicTestArea.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UnitTestPlayArea.cs" />
+    <Compile Include="BasicTesting\UnitTestPlayArea.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
